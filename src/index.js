@@ -32,20 +32,15 @@ class Display extends React.Component {
       row4: "",
     };
 
-    onValue(ref(db, "message/header"), snapshot => {
-      this.setState({header: snapshot.val()});
-    });
-    onValue(ref(db, "message/row1"), snapshot => {
-      this.setState({row1: snapshot.val()});
-    });
-    onValue(ref(db, "message/row2"), snapshot => {
-      this.setState({row2: snapshot.val()});
-    });
-    onValue(ref(db, "message/row3"), snapshot => {
-      this.setState({row3: snapshot.val()});
-    });
-    onValue(ref(db, "message/row4"), snapshot => {
-      this.setState({row4: snapshot.val()});
+    onValue(ref(db, "message"), snapshot => {
+      const val = snapshot.val();
+      this.setState({
+        header: val.header,
+        row1: val.row1,
+        row2: val.row2,
+        row3: val.row3,
+        row4: val.row4,
+      });
     });
   }
   render() {
