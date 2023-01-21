@@ -41,6 +41,10 @@ ol, ul {
   width: 1.3ch !important;
 }
 
+div[data-kind="digit"][data-mode="alpha"] div {
+  animation-duration: 250ms !important;
+}
+
 .board-row:after {
   clear: both;
   content: "";
