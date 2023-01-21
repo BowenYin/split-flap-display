@@ -6,7 +6,7 @@ import 'react-split-flap-effect/extras/themes.css';
 import reportWebVitals from './reportWebVitals';
 import { FlapDisplay, Presets } from 'react-split-flap-effect'
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+// import { getDatabase, ref, onValue } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAL7Oj24B5AWisNUoj3ArpniaxkuB9mtNg",
@@ -17,7 +17,7 @@ const firebaseConfig = {
   messagingSenderId: "279802897796",
   appId: "1:279802897796:web:4a63d221b44a0caeb629d1"
 };
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
 
 // const db = getDatabase(app);
 
@@ -52,7 +52,7 @@ class Display extends React.Component {
       this.state.apiKey.lastFm = key;
     }
     fetch("https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=bowenyin&api_key="+this.state.apiKey.lastFm+"&format=json&limit=1").then((response) => response.json()).then((data) => console.log(data));
-    fetch("https://cors-anywhere.herokuapp.com/https://capmetro.hafas.cloud/bin/mgate.exe", {
+    fetch("https://test.cors.workers.dev/?https://capmetro.hafas.cloud/bin/mgate.exe", {
       "headers": {
         "accept": "*/*",
         "accept-language": "en-US,en;q=0.9",
@@ -63,7 +63,7 @@ class Display extends React.Component {
       "mode": "cors",
       "credentials": "omit"
     }).then(response => response.json()).then(data => console.log(data)).catch(err => console.error(err));
-    fetch("https://cors-anywhere.herokuapp.com/https://capmetro.hafas.cloud/bin/mgate.exe", {
+    fetch("https://test.cors.workers.dev/?https://capmetro.hafas.cloud/bin/mgate.exe", {
       "headers": {
         "accept": "*/*",
         "accept-language": "en-US,en;q=0.9",
