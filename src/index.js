@@ -25,22 +25,80 @@ class Display extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      header: "hi",
+      header: "",
       row1: "",
       row2: "",
       row3: "",
       row4: "",
+      apiKey: {
+        lastFm: localStorage.getItem("lastFmApiKey"),
+      }
     };
 
-    onValue(ref(db, "message"), snapshot => {
-      const val = snapshot.val();
-      this.setState({
-        header: val.header,
-        row1: val.row1,
-        row2: val.row2,
-        row3: val.row3,
-        row4: val.row4,
-      });
+    // onValue(ref(db, "message"), snapshot => {
+    //   const val = snapshot.val();
+    //   this.setState({
+    //     header: val.header,
+    //     row1: val.row1,
+    //     row2: val.row2,
+    //     row3: val.row3,
+    //     row4: val.row4,
+    //   });
+    // });
+    
+    if (!this.state.apiKey.lastFm) {
+      let key = prompt("Last.fm API Key:");
+      localStorage.setItem("lastFmApiKey", key);
+      this.state.apiKey.lastFm = key;
+    }
+    fetch("https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=bowenyin&api_key="+this.state.apiKey.lastFm+"&format=json&limit=1").then((response) => response.json()).then((data) => console.log(data));
+    fetch("https://cors-anywhere.herokuapp.com/https://capmetro.hafas.cloud/bin/mgate.exe", {
+      "headers": {
+        "accept": "*/*",
+        "accept-language": "en-US,en;q=0.9",
+        "content-type": "application/json",
+      },
+      "body": "{\"id\":\"q74w5mkim8s794wg\",\"ver\":\"1.59\",\"lang\":\"eng\",\"auth\":{\"type\":\"AID\",\"aid\":\"web9j2nak29uz41irb\"},\"client\":{\"id\":\"CMTA\",\"type\":\"WEB\",\"name\":\"webapp\",\"l\":\"vs_webapp\",\"v\":\"1.5.1\"},\"formatted\":false,\"svcReqL\":[{\"req\":{\"stbLoc\":{\"name\":\"31st Street Station (NB), Stop ID 603\",\"lid\":\"A=1@O=31st Street Station (NB), Stop ID 603@X=-97741151@Y=30297783@U=80@L=603@B=1@p=1674199296@\"},\"jnyFltrL\":[{\"type\":\"PROD\",\"mode\":\"INC\",\"value\":4648}],\"type\":\"DEP\",\"sort\":\"RT\",\"maxJny\":40},\"meth\":\"StationBoard\",\"id\":\"1|9|\"}]}",
+      "method": "POST",
+      "mode": "cors",
+      "credentials": "omit"
+    }).then(response => response.json()).then(data => console.log(data)).catch(err => console.error(err));
+    fetch("https://cors-anywhere.herokuapp.com/https://capmetro.hafas.cloud/bin/mgate.exe", {
+      "headers": {
+        "accept": "*/*",
+        "accept-language": "en-US,en;q=0.9",
+        "content-type": "application/json",
+      },
+      "body": "{\"id\":\"fu68vmgg6g43xm8x\",\"ver\":\"1.59\",\"lang\":\"eng\",\"auth\":{\"type\":\"AID\",\"aid\":\"web9j2nak29uz41irb\"},\"client\":{\"id\":\"CMTA\",\"type\":\"WEB\",\"name\":\"webapp\",\"l\":\"vs_webapp\",\"v\":\"1.5.1\"},\"formatted\":false,\"svcReqL\":[{\"req\":{\"stbLoc\":{\"name\":\"31st Street Station (SB), Stop ID 5357\",\"lid\":\"A=1@O=31st Street Station (SB), Stop ID 5357@X=-97741267@Y=30298025@U=80@L=5357@B=1@p=1674199296@\",\"extId\":\"5357\"},\"jnyFltrL\":[{\"type\":\"PROD\",\"mode\":\"INC\",\"value\":4648}],\"type\":\"DEP\",\"sort\":\"RT\",\"maxJny\":40},\"meth\":\"StationBoard\",\"id\":\"1|3|\"}]}",
+      "method": "POST",
+      "mode": "cors",
+      "credentials": "omit"
+    }).then(response => response.json()).then(data => console.log(data)).catch(err => console.error(err));
+    
+    this.getLastFm();
+  }
+  getLastFm() {
+    fetch("https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=bowenyin&api_key="+this.state.apiKey.lastFm+"&format=json&limit=1").then((response) => response.json()).then((data) => {
+      console.log(data);
+      const entry = data.recenttracks.track[0];
+      if (entry["@attr"]?.nowplaying) {
+        this.setState({
+          header: "Now Playing",
+          row1: entry.name,
+          row2: entry.artist["#text"],
+          row3: "",
+          row4: "",
+        });
+      } else {
+        this.setState({
+          header: "",
+          row1: "",
+          row2: "",
+          row3: "",
+          row4: "",
+        });
+      }
+      setTimeout(() => this.getLastFm(), 10000);
     });
   }
   render() {
