@@ -6,7 +6,7 @@ import 'react-split-flap-effect/extras/themes.css';
 import reportWebVitals from './reportWebVitals';
 import { FlapDisplay, Presets } from 'react-split-flap-effect'
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAL7Oj24B5AWisNUoj3ArpniaxkuB9mtNg",
@@ -19,7 +19,7 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 
-const db = getDatabase(app);
+// const db = getDatabase(app);
 
 class Display extends React.Component {
   constructor(props) {
@@ -106,7 +106,7 @@ class Display extends React.Component {
       <div className="container">
         <FlapDisplay
           className="M display-row"
-          chars={Presets.ALPHANUM + ":-.,()/"}
+          chars={Presets.ALPHANUM + ":-.,'()/"}
           length={64}
           value={this.state.header}
           timing={100}
@@ -114,7 +114,7 @@ class Display extends React.Component {
         />
         <FlapDisplay
           className="XL display-row"
-          chars={Presets.ALPHANUM + ":-.,()/"}
+          chars={Presets.ALPHANUM + ":-.,'()/"}
           length={32}
           value={this.state.row1}
           timing={100}
@@ -122,7 +122,7 @@ class Display extends React.Component {
         />
         <FlapDisplay
           className="XL display-row"
-          chars={Presets.ALPHANUM + ":-.,()/"}
+          chars={Presets.ALPHANUM + ":-.,'()/"}
           length={32}
           value={this.state.row2}
           timing={100}
@@ -130,7 +130,7 @@ class Display extends React.Component {
         />
         <FlapDisplay
           className="XL display-row"
-          chars={Presets.ALPHANUM + ":-.,()/"}
+          chars={Presets.ALPHANUM + ":-.,'()/"}
           length={32}
           value={this.state.row3}
           timing={100}
@@ -138,7 +138,7 @@ class Display extends React.Component {
         />
         <FlapDisplay
           className="XL display-row"
-          chars={Presets.ALPHANUM + ":-.,()/"}
+          chars={Presets.ALPHANUM + ":-.,'()/"}
           length={32}
           value={this.state.row4}
           timing={100}
