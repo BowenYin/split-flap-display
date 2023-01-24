@@ -23,22 +23,52 @@ ol, ul {
   right: 0;
   left: 0;
   height: auto;
-  margin: 8% 10%;
+  margin: 7% 11% 8%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
 
-.display-row {
-  margin: 2%;
+.message {
+  margin: 0;
 }
 
-.M [data-kind="digit"][data-mode="alpha"] {
-  width: 1.5ch !important;
+.header {
+  margin: 0 0 0 2px;
 }
 
-.XL [data-kind="digit"][data-mode="alpha"] {
-  width: 1.3ch !important;
+.header [data-kind="digit"], .message [data-kind="digit"] {
+  font-family: "Share", sans-serif;
+  width: 1.1ch;
+  color: white;
+  background-color: black;
+  line-height: 1em;
+  height: 1em;
+  text-align: center;
+}
+
+.header [data-kind="digit"][data-mode="alpha"] {
+  width: 1.4ch;  
+}
+
+.header [data-kind="hinge"] {
+  height: 0.04em;
+}
+
+.message [data-kind="digit"][data-mode="alpha"] {
+  width: 1.17ch;  
+}
+
+.message [data-kind="hinge"] {
+  height: 0.04em;
+}
+
+.header [data-kind="digit"] {
+  font-size: 14px;
+}
+
+.message [data-kind="digit"] {
+  font-size: 34px;
 }
 
 div[data-kind="digit"][data-mode="alpha"] div {

@@ -34,7 +34,8 @@ class Display extends React.Component {
       row4: "",
       apiKey: {
         lastFm: localStorage.getItem("lastFmApiKey"),
-      }
+      },
+      lastChange: new Date("2023-01-01"),
     };
 
     // onValue(ref(db, "message"), snapshot => {
@@ -79,6 +80,10 @@ class Display extends React.Component {
     
     this.getLastFm();
   }
+  loop() {
+    
+    setTimeout(() => this.loop(), 10000);
+  }
   getLastFm() {
     fetch("https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=bowenyin&api_key="+this.state.apiKey.lastFm+"&format=json&limit=1").then((response) => response.json()).then((data) => {
       console.log(data);
@@ -107,41 +112,41 @@ class Display extends React.Component {
     return (
       <div className="container">
         <FlapDisplay
-          className="M display-row"
+          className="header display-row"
           chars={Presets.ALPHANUM + ":-.,'()/"}
-          length={64}
+          length={80}
           value={this.state.header}
           timing={100}
           hinge={false}
         />
         <FlapDisplay
-          className="XL display-row"
+          className="message display-row"
           chars={Presets.ALPHANUM + ":-.,'()/"}
-          length={32}
+          length={40}
           value={this.state.row1}
           timing={100}
           hinge={false}
         />
         <FlapDisplay
-          className="XL display-row"
+          className="message display-row"
           chars={Presets.ALPHANUM + ":-.,'()/"}
-          length={32}
+          length={40}
           value={this.state.row2}
           timing={100}
           hinge={false}
         />
         <FlapDisplay
-          className="XL display-row"
+          className="message display-row"
           chars={Presets.ALPHANUM + ":-.,'()/"}
-          length={32}
+          length={40}
           value={this.state.row3}
           timing={100}
           hinge={false}
         />
         <FlapDisplay
-          className="XL display-row"
+          className="message display-row"
           chars={Presets.ALPHANUM + ":-.,'()/"}
-          length={32}
+          length={40}
           value={this.state.row4}
           timing={100}
           hinge={false}
